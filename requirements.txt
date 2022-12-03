@@ -3,3 +3,5 @@ uvicorn
 uvloop>=0.14.0
 httptools==0.1.*
 pydantic
+uvicorn[standard]
+requests
