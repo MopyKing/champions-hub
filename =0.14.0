@@ -1,0 +1,4 @@
+Collecting uvloop
+  Downloading uvloop-0.17.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+Installing collected packages: uvloop
+Successfully installed uvloop-0.17.0
