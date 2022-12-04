@@ -8,8 +8,8 @@ services:
     volumes:
       - ./mysqld:/var/run/mysqld
       - ./db:/var/lib/mysql
-    networks:
-      - db
+    #networks:
+    #  - db
     ports:
       - "3306:3306"
     healthcheck:
@@ -21,4 +21,8 @@ services:
   backend:
     container_name: backend
     build: .
-    
+    ports: 
+      - "90:90"
+    depends_on: 
+      - db
+
