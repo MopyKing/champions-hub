@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-while !  wget db:3306; do 
+while !  wget mydb:3306; do 
 	sleep 5
 done
 

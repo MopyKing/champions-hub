@@ -1,11 +1,15 @@
 FROM python:3.9
 
-WORKDIR /code
+WORKDIR /app
 
-COPY ./requirements.txt /code/requirements.txt
+RUN apt-get update
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./requirements.txt /app/requirements.txt
 
-COPY ./backend-dir /code/backend-dir
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+COPY ./backend-dir /app/backend-dir
+
+ENTRYPOINT ["bash", "/app/entrypoint.sh"]
 
 CMD ["uvicorn", "backend-dir.main:app", "--host", "0.0.0.0", "--port", "90"]
