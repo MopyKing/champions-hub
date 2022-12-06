@@ -6,3 +6,4 @@ pydantic
 uvicorn[standard]
 requests
 streamlit
+pillow
