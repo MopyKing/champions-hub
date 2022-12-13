@@ -7,5 +7,4 @@ uvicorn[standard]
 requests
 streamlit
 pillow
-hashlib
 pandas
