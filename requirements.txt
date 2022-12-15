@@ -8,3 +8,5 @@ requests
 streamlit
 pillow
 pandas
+mysql
+mysql.connector

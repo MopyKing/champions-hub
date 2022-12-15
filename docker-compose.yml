@@ -20,9 +20,11 @@ services:
 
   backend:
     container_name: backend
-    build: .
+    build:
+      context: .
+      dockerfile: back-dockerfile
     ports: 
-      - "90:90"
+      - "9090:90"
     depends_on: 
       - mydb
 

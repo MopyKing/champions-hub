@@ -1,6 +1,5 @@
 import streamlit as st
 from PIL import Image
-import os.path
 
 st.title("Pictures - Credits to wallpapercave.com")
 new_height = 720
