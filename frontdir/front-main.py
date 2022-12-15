@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 
 def main():
+    new_height = 720
     st.title("Photos-Hub")
     menu = ["Home", "Pictures", "Login", "Sign-Up"]
     choice = st.sidebar.selectbox("Menu", menu)
