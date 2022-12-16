@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from backdir.models import Champion, Weapon
+from backdir.models import Champion, Weapon, Resizing
 
 app = FastAPI()
 

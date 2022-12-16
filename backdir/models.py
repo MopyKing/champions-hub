@@ -1,4 +1,15 @@
 from pydantic import BaseModel
+from PIL import Image
+
+
+new_height = 720
+
+def Resizing(image_path):
+    image = Image.open(image_path)
+    new_width = int(new_height / image.height *image.width)
+    image.resize((new_width, new_height))
+    return image
+
 
 
 class Weapon(BaseModel):
