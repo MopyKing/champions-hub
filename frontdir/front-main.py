@@ -65,12 +65,18 @@ def main():
         st.button("Download", key="5")
 
     elif choice == "Champions":
-        if st.text_input("Champion name") == "zed":
+        if st.text_input("Champion name") == "masteryi":
             dfs = []
-            response = requests.get("http://backend:90/v1/champions/zed")
+            response = requests.get("http://backend:90/v1/champions/masteryi")
             content = json.loads(response.text)
             dfs.append(pd.DataFrame([content]))
             df = pd.concat(dfs, ignore_index=True, sort=False)
+
+            image =Image.open("/app/frontdir/league-of-legends/master-yi.png")
+            # resizing the image to 720p
+            new_width = int(new_height / image.height *image.width)
+            image.resize((new_width, new_height))
+            st.image(image, caption='Master Yi')
             st.table(df)
 
 

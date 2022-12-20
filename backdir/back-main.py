@@ -8,8 +8,8 @@ essence_reaver= Weapon(
     attack_damage=45, 
     ability_haste=20)
 
-zed = Champion(
-    name="Zed", 
+masteryi = Champion(
+    name="master-yi", 
     health=654, 
     mana=349 , 
     health_regen=3.75, 
@@ -24,7 +24,7 @@ zed = Champion(
     weapon=essence_reaver)
 
 Champions_List = []
-Champions_List.append(zed)
+Champions_List.append(masteryi)
 
 Champions_Info = {
     "champions": Champions_List,
@@ -44,10 +44,15 @@ def about():
 def Display_Champions_Info():
     return Champions_Info
 
-@app.get("/v1/champions/zed")
+@app.get("/v1/champions/masteryi")
 def Zed():
-    return zed
+    return masteryi
+
+@app.post("/v1/champions/add-champion")
+def Add_Champion(champion: Champion):
+    return {"SUCCESS":"You Added a Champion !"}
 
 @app.get("/v1/weapons/essence_reaver")
 def Essence_Reaver():
     return essence_reaver
+
