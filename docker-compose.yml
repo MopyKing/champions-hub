@@ -23,6 +23,15 @@ services:
       context: .
       dockerfile: back-dockerfile
     ports: 
-      - "9090:90"
+      - "90:90"
     depends_on: 
       - mydb
+
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: front-dockerfile
+    ports: 
+      - "8501:8501"

@@ -67,7 +67,7 @@ def main():
     elif choice == "Champions":
         if st.text_input("Champion name") == "zed":
             dfs = []
-            response = requests.get("http://localhost:9090/v1/champions/zed")
+            response = requests.get("http://backend:90/v1/champions/zed")
             content = json.loads(response.text)
             dfs.append(pd.DataFrame([content]))
             df = pd.concat(dfs, ignore_index=True, sort=False)
