@@ -4,6 +4,9 @@ This project is a microservice that will let you view / edit / add Champions for
 
 The project consists of 3 parts, front-end, back-end, and MySQL database.
 
+The Architecture of this project is described below :
+
+
 in order to run the backend and the database (temporarily for now) :
 
 Prerequisites :
