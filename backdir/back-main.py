@@ -23,8 +23,25 @@ masteryi = Champion(
     attack_range=500, 
     weapon=essence_reaver)
 
+karthus = Champion(
+    name="karthus", 
+    health=630, 
+    mana=520 , 
+    health_regen=3, 
+    mana_regen=8.2, 
+    attack_damage=46 , 
+    magic_damage=0,
+    armor=30, 
+    magic_resist=50, 
+    critical_damage=175, 
+    movement_speed=335, 
+    attack_range=450, 
+    weapon=essence_reaver)
+
 Champions_List = []
 Champions_List.append(masteryi)
+Champions_List.append(karthus)
+
 
 Champions_Info = {
     "champions": Champions_List,
@@ -47,6 +64,13 @@ def Display_Champions_Info():
 @app.get("/v1/champions/masteryi")
 def Zed():
     return masteryi
+
+@app.get("/v1/champions/get-champion-by-name")
+def get_champion(champion_name : str):
+    for champ in Champions_Info["champions"]:
+        if champ["course_name"] == champion_name:
+            return champ
+    return {"Exception": "No Such Champion"}
 
 @app.post("/v1/champions/add-champion")
 def Add_Champion(champion: Champion):
