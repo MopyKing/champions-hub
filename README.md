@@ -6,6 +6,7 @@ The project consists of 3 parts, front-end, back-end, and MySQL database.
 
 The Architecture of this project is described below :
 
+![_Flow](https://user-images.githubusercontent.com/71922912/208976356-8707bff7-91e2-4414-89f6-8763ff420065.png)
 
 in order to run the backend and the database (temporarily for now) :
 
