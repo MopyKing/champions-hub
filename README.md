@@ -8,29 +8,28 @@ The Architecture of this project is described below :
 
 ![_Flow](https://user-images.githubusercontent.com/71922912/208976356-8707bff7-91e2-4414-89f6-8763ff420065.png)
 
-in order to run the backend and the database (temporarily for now) :
+## How to run the application ?
 
 Prerequisites :
 - Docker
 - Git
 
-1. first clone the repository to your local system :
+1. First clone the repository to your local system :
 
 ``` git clone https://github.com/EASS-HIT-PART-A-2022-CLASS-II/Photos-Hub.git```
 
-2. then simply write the command : 
+2. Move into the directory of the project with the command : 
+
+``` cd Photos-Hub ```
+
+3. Then to start the application simply write the command : 
 
 ``` docker-compose up ```
 
-this will create 2 containers for backend and database.
+this will create 3 containers for frontend, backend and database.
 
-3. open your browser and enter the URL : 
-   ``` localhost:9090/docs ```
-   
-now the backend is up and running and you can view the FastAPI UI with all the methods that are available.
+3. To enter the Backend FastAPI UI - open your browser and enter the URL : 
+   ``` localhost:90/docs ```
 
-To see the front-end (UI), temporarily for now :
-
-``` docker build -t ph-front ./front-dockerfile ```
-
-``` docker run -d --network=host ph-front ```
+4. To enter the Frontend UI - open your browser and enter the URL : 
+   ``` localhost:8501 ```
