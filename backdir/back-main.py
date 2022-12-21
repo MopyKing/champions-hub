@@ -52,17 +52,12 @@ Champions_Info = {
 def home():
     return {"Welcome ":"This is The Default Page"}
 
-@app.get("/about")
-def about():
-    return {"Data":"About"}
-
-
 @app.get("/v1/view-champions")
 def Display_Champions_Info():
     return Champions_Info
 
 @app.get("/v1/champions/masteryi")
-def Zed():
+def masteryi():
     return masteryi
 
 @app.get("/v1/champions/get-champion-by-name")
