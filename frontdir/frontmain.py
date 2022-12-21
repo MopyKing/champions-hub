@@ -81,6 +81,9 @@ def main():
 
     elif choice == "Champions":
         name = st.text_input("Champion name")
+        while(True):
+            if(name!=None):
+                break
         dfs = []
         response = requests.get(url="http://backend:90/v1/champions/masteryi", params={"champion_name":{name}})
         content = json.loads(response.text)

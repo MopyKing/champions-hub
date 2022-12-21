@@ -1,4 +1,4 @@
-from back-main import app
+from backdir.backmain import app
 from fastapi.testclient import TestClient
 import json
 
@@ -10,6 +10,6 @@ def test_home():
     assert response.json() == {"Welcome ":"This is The Default Page"}
 
 def test_masteryi():
-    response = client.post(url = "/v1/champions/masteryi")
+    response = client.get(url = "/v1/champions/masteryi")
     assert response.status_code == 200
     assert response.json()["name"] == "masteryi"

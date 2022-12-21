@@ -57,7 +57,7 @@ def Display_Champions_Info():
     return Champions_Info
 
 @app.get("/v1/champions/masteryi")
-def masteryi():
+def Masteryi():
     return masteryi
 
 @app.get("/v1/champions/get-champion-by-name")
