@@ -9,7 +9,7 @@ essence_reaver= Weapon(
     ability_haste=20)
 
 masteryi = Champion(
-    name="master-yi", 
+    name="masteryi", 
     health=654, 
     mana=349 , 
     health_regen=3.75, 
