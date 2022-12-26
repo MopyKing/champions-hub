@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from backdir.models import Champion, Weapon, Resizing
+import base64
+import io
+from PIL import Image
+import json
 
 app = FastAPI()
 
@@ -11,6 +15,21 @@ essence_reaver= Weapon(
 masteryi = Champion(
     name="masteryi", 
     health=654, 
+    mana=349 , 
+    health_regen=3.75, 
+    mana_regen=8.18 , 
+    attack_damage=60 , 
+    magic_damage=0,
+    armor=28, 
+    magic_resist=30, 
+    critical_damage=175, 
+    movement_speed=335, 
+    attack_range=500, 
+    weapon=essence_reaver)
+
+poppy = Champion(
+    name="poppy", 
+    health=589, 
     mana=349 , 
     health_regen=3.75, 
     mana_regen=8.18 , 
@@ -41,6 +60,7 @@ karthus = Champion(
 Champions_List = []
 Champions_List.append(masteryi)
 Champions_List.append(karthus)
+Champions_List.append(poppy)
 
 
 Champions_Info = {
@@ -60,10 +80,22 @@ def Display_Champions_Info():
 def Masteryi():
     return masteryi
 
+@app.get("/v1/champions/poppy")
+def Poppy():
+    byteImgIO = io.BytesIO()
+    byteImg = Image.open("/app/backdir/league-of-legends/poppy.png")
+    byteImg.save(byteImgIO, "PNG")
+    byteImgIO.seek(0)
+    byteImg = byteImgIO.read()
+    return json.dumps({'image' : byteImg, "champion": poppy})
+    # return {"image": byteImg, "champion": poppy}
+    # json.dumps({'picture' : data.encode('base64')})
+
+
 @app.get("/v1/champions/get-champion-by-name")
 def get_champion(champion_name : str):
     for champ in Champions_Info["champions"]:
-        if champ["course_name"] == champion_name:
+        if champ.name == champion_name:
             return champ
     return {"Exception": "No Such Champion"}
 

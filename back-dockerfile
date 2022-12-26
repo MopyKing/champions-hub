@@ -10,6 +10,8 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY ./backdir /app/backdir
 
+COPY ./league-of-legends /app/backdir/league-of-legends
+
 COPY ./entrypoint.sh /app/entrypoint.sh
 
 ENTRYPOINT ["bash", "/app/entrypoint.sh"]
