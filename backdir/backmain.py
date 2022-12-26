@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from backdir.models import Champion, Weapon, Resizing
 import base64
-import io
 from PIL import Image
 import json
 
@@ -82,14 +81,12 @@ def Masteryi():
 
 @app.get("/v1/champions/poppy")
 def Poppy():
-    byteImgIO = io.BytesIO()
-    byteImg = Image.open("/app/backdir/league-of-legends/poppy.png")
-    byteImg.save(byteImgIO, "PNG")
-    byteImgIO.seek(0)
-    byteImg = byteImgIO.read()
-    return json.dumps({'image' : byteImg, "champion": poppy})
-    # return {"image": byteImg, "champion": poppy}
-    # json.dumps({'picture' : data.encode('base64')})
+    data_uri = base64.b64encode(open('/app/backdir/league-of-legends/poppy.png', 'rb').read()).decode('utf-8')
+    img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
+    #byteImg = Image.open("/app/backdir/league-of-legends/poppy.png")
+    #bytes = byteImg.tobytes()
+    #mystr = base64.b64encode(bytes).decode()
+    return {"image": img_tag, "champion": poppy}
 
 
 @app.get("/v1/champions/get-champion-by-name")

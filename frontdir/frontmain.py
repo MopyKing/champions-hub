@@ -5,7 +5,7 @@ import pandas as pd
 import json
 import base64
 import io
-
+from html.parser import HTMLParser
 
 def main():
     new_height = 720
@@ -96,12 +96,7 @@ def main():
             dfs.append(pd.DataFrame([content]))
             df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
 
-            dataBytesIO = io.BytesIO(json_obj["image"])
-            image = Image.open(dataBytesIO)
-            # resizing the image to 720p
-            new_width = int(new_height / image.height * image.width)
-            image.resize((new_width, new_height))
-            st.image(image, caption="Master Yi")
+            st.markdown(json_obj["image"], unsafe_allow_html=True)
             st.table(df)
 
     elif choice == "Champions":

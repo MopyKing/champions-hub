@@ -12,3 +12,4 @@ mysql
 mysql.connector
 pytest
 httpx
+bs4
