@@ -1,15 +1,21 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
-from backdir.models import Champion, Weapon, Resizing
-import base64
-from PIL import Image
-import json
+from backdir.models import Champion, Weapon
+import mysql
+import mysql.connector
+from backdir.dbmain import insert_champion, insert_weapon, db_champion, db_weapon
 
 app = FastAPI()
 
 essence_reaver= Weapon(
+    name="essence reaver",
     attack_damage=45, 
     ability_haste=20)
+
+everfrost=Weapon(
+    name="Everfrost",
+    magic_damage=70,
+    ability_haste=20
+)
 
 masteryi = Champion(
     name="masteryi", 
@@ -81,13 +87,12 @@ def Masteryi():
 
 @app.get("/v1/champions/poppy")
 def Poppy():
-    data_uri = base64.b64encode(open('/app/backdir/league-of-legends/poppy.png', 'rb').read()).decode('utf-8')
-    img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
-    #byteImg = Image.open("/app/backdir/league-of-legends/poppy.png")
-    #bytes = byteImg.tobytes()
-    #mystr = base64.b64encode(bytes).decode()
-    return {"image": img_tag, "champion": poppy}
+    return poppy
 
+@app.get("/v1/champions/karthus")
+def Karthus():
+    champ_name="karthus"
+    return db_champion(champ_name)
 
 @app.get("/v1/champions/get-champion-by-name")
 def get_champion(champion_name : str):
@@ -104,3 +109,62 @@ def Add_Champion(champion: Champion):
 def Essence_Reaver():
     return essence_reaver
 
+
+# sending the image as UTF-8 String : 
+'''
+data_uri = base64.b64encode(open('/app/backdir/league-of-legends/poppy.png', 'rb').read()).decode('utf-8')
+img_tag = '<img src="data:image/png;base64,{0}">'.format(data_uri)
+return {"image": img_tag, "champion": poppy}
+
+FRONT-END SIDE : 
+st.markdown(json_obj["image"], unsafe_allow_html=True)
+'''
+
+
+### DATABASE CONFIGS ###
+
+# db = mysql.connector.connect(
+#     host="mydb",
+#     user="root",
+#     passwd="123456",
+#     database="eass"
+# )
+
+# create_champions_table_query = """
+# CREATE TABLE champions(
+#     name VARCHAR(100) PRIMARY KEY, 
+#     health INT, 
+#     mana INT, 
+#     health_regen float(10,7), 
+#     mana_regen float(10,7), 
+#     attack_damage INT, 
+#     magic_damage INT,
+#     armor INT, 
+#     magic_resist INT, 
+#     critical_damage INT, 
+#     movement_speed INT, 
+#     attack_range INT, 
+#     weapon VARCHAR(100) FOREIGN KEY REFERENCE weapons(name)
+# )
+# """
+
+# create_weapons_table_query = """
+# CREATE TABLE champions(
+#     name VARCHAR(100) PRIMARY KEY, 
+#     health INT, 
+#     mana INT, 
+#     health_regen float(10,7), 
+#     mana_regen float(10,7), 
+#     attack_damage INT, 
+#     magic_damage INT,
+#     armor INT, 
+#     magic_resist INT, 
+#     critical_damage INT, 
+#     movement_speed INT, 
+#     attack_range INT, 
+#     weapon VARCHAR(100)
+# )
+# """
+# with db.cursor() as cursor:
+#     cursor.execute(create_weapons_table_query)
+#     db.commit()

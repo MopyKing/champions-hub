@@ -13,6 +13,7 @@ def Resizing(image_path):
 
 
 class Weapon(BaseModel):
+    name: str
     attack_damage: int = 0
     magic_damage: int = 0
     attack_speed: int = 0
