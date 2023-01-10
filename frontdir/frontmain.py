@@ -10,7 +10,7 @@ from html.parser import HTMLParser
 def main():
     new_height = 720
     st.title("Photos-Hub")
-    menu = ["Home", "Pictures", "masteryi", "poppy","Champions", "Login", "Sign-Up"]
+    menu = ["Home", "Pictures", "masteryi","karthus", "poppy","Champions", "Login", "Sign-Up"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Home":
@@ -82,6 +82,24 @@ def main():
             new_width = int(new_height / image.height * image.width)
             image.resize((new_width, new_height))
             st.image(image, caption="Master Yi")
+            st.table(df)
+
+    elif choice == "karthus":
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view champion information !</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        st.markdown("To display :green[Karthus], simply input 'karthus' ")
+        if st.text_input("Champion name") == "karthus":
+            dfs = []
+            response = requests.get("http://backend:90/v1/champions/karthus")
+            content = json.loads(response.text)
+            dfs.append(pd.DataFrame([content]))
+            df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
+
+            image = Image.open("/app/frontdir/league-of-legends/karthus.png")
+            # resizing the image to 720p
+            new_width = int(new_height / image.height * image.width)
+            image.resize((new_width, new_height))
+            st.image(image, caption="Karthus")
             st.table(df)
 
     elif choice == "poppy":

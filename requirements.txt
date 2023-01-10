@@ -10,6 +10,7 @@ pillow
 pandas
 mysql
 mysql.connector
+mysql-connector-python
 pytest
 httpx
 bs4
