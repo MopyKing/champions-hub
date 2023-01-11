@@ -9,12 +9,20 @@ from html.parser import HTMLParser
 
 def main():
     new_height = 720
-    st.title("Photos-Hub")
+    st.title("Champions-Hub")
     menu = ["Home", "Pictures", "masteryi","karthus", "poppy","Champions", "Login", "Sign-Up"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Home":
-        st.subheader("Home")
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 45px;">Welcome To Champions Hub!</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 30px;">In this application you will be able to do several things :</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # 1. Display Information about the champion "Master-Yi"<br>2. Display Information about the champion "Karthus"<br>3. Display Information about the champion "Poppy"<br>4. Display the pictures of all the champions<br>5. Display champion information dynamically of your choice
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 20px;">1. Display Information about the champion "Master-Yi"<br>2. Display Information about the champion "Karthus"<br>3. Display Information about the champion "Poppy"<br>4. Display the pictures of all the champions<br>5. Display champion information dynamically of your choice</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        st.info('Please Navigate To The Scroll Bar "Menu" Located Top Left Corner Of This Window And Choose A Task')
+        #st.subheader("Home")
 
     elif choice == "Login":
         st.subheader("Login Section")
@@ -120,7 +128,7 @@ def main():
     elif choice == "Champions":
             new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can display information about several champions !</p>'
             st.markdown(new_title, unsafe_allow_html=True)
-            st.markdown("Try input one of the names : :red['masteryi'], :green['karthus']")
+            st.markdown("Try input one of the names : :red['masteryi'], :green['karthus'], :blue['poppy]")
             name = st.text_input("Champion name")
             while(True):
                 if(name!=None or name!= ""):
