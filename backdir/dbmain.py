@@ -1,6 +1,6 @@
 import mysql
 import mysql.connector
-from models import Champion
+from backdir.models import Champion, Weapon
 
 db = mysql.connector.connect(
     host="mydb",
@@ -13,19 +13,11 @@ db = mysql.connector.connect(
 create_weapons_table_query = """
 CREATE TABLE IF NOT EXISTS weapons(
     name VARCHAR(100) PRIMARY KEY, 
-    health INT, 
-    mana INT, 
-    health_regen float(10,7), 
-    mana_regen float(10,7), 
     attack_damage INT, 
     magic_damage INT,
-    armor INT, 
-    magic_resist INT, 
-    critical_damage INT, 
-    movement_speed INT, 
-    attack_range INT, 
-    weapon VARCHAR(100)
-)
+    attack_speed INT, 
+    ability_haste INT
+    )
 """
 
 with db.cursor() as cursor:
@@ -48,7 +40,7 @@ CREATE TABLE IF NOT EXISTS champions(
     movement_speed INT, 
     attack_range INT, 
     weapon VARCHAR(100), FOREIGN KEY(weapon) REFERENCES weapons(name)
-)
+    )
 """
 
 with db.cursor() as cursor:
@@ -56,7 +48,7 @@ with db.cursor() as cursor:
     db.commit()
 
 
-def insert_champion(champion: Champion):
+def insert_champion(champion: Champion, weapon: Weapon):
     sql_query = '''INSERT INTO champions(
         name,
         health,
@@ -70,26 +62,46 @@ def insert_champion(champion: Champion):
         critical_damage,
         movement_speed,
         attack_range,
-        weapon
+        weapon)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
     
-    values_list=list()
-    for i in Champion:
-        values_list.append()
+    values_list=(
+        champion.name,
+        champion.health,
+        champion.mana,
+        champion.health_regen,
+        champion.mana_regen,
+        champion.attack_damage,
+        champion.magic_damage,
+        champion.armor,
+        champion.magic_resist,
+        champion.critical_damage,
+        champion.movement_speed,
+        champion.attack_range,
+        weapon.name,
+    )
 
     with db.cursor() as cursor:
         cursor.execute(sql_query, values_list)
         db.commit()
 
 
-def insert_weapon(values_list):
-    sql_query = '''INSERT INTO champions(
+def insert_weapon(weapon: Weapon):
+    sql_query = '''INSERT INTO weapons(
         name,
         attack_damage,
         magic_damage,
         attack_speed,
-        ability_haste
+        ability_haste)
         VALUES (%s, %s, %s, %s, %s)'''
+
+    values_list=(
+        weapon.name,
+        weapon.attack_damage,
+        weapon.magic_damage,
+        weapon.attack_speed,
+        weapon.ability_haste
+    )
 
     with db.cursor() as cursor:
         cursor.execute(sql_query, values_list)
@@ -118,26 +130,6 @@ def db_champion(champion_name):
         mydict["weapon"]:row[12]
 
     return mydict
-
-def db_champion2(champion_name):
-    select_champion = """SELECT JSON_ARRAYAGG(JSON_OBJECT(
-        'name', name,
-        'health', health,
-        'mana', mana,
-        'health_regen', health_regen,
-        'mana_regen', mana_regen,
-        'attack_damage', attack_damage,
-        'magic_damage', magic_damage,
-        'armor', armor,
-        'magic_resist', magic_resist,
-        'critical_damage', critical_damage,
-        'movement_speed', movement_speed,
-        'attack_range', attack_range
-        'weapon', weapon)) FROM chapions WHERE name = '{}';""".format(champion_name)
-
-    cursor = db.cursor()
-    cursor.execute(select_champion)
-    return cursor
 
 
 def db_weapon(weapon_name):

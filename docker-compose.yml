@@ -10,6 +10,10 @@ services:
       - ./db:/var/lib/mysql
     ports:
       - "3306:3306"
+    #command:
+    #  - sh -c "mysql UPDATE mysql.user SET host='%' WHERE user='root';"
+    #  - sh -c "mysql FLUSH PRIVILEGES;"
+    #  - sh -c "mysql SELECT host, user FROM mysql.user WHERE user='root';"
     healthcheck:
       test: "mysqladmin ping -h localhost" #this is mysql command to monitor if the localhost database is alive
       interval: 1s

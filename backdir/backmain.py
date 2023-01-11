@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from backdir.models import Weapon, Champion
 import mysql
 import mysql.connector
-from backdir.dbmain import db_champion, db_champion2, insert_champion, db_weapon, insert_weapon
+from backdir.dbmain import db_champion, insert_champion, db_weapon, insert_weapon
 
 
 app = FastAPI()
@@ -93,8 +93,9 @@ def Poppy():
 @app.get("/v1/champions/karthus")
 def Karthus():
     champ_name="karthus"
-    insert_champion(karthus)
-    return db_champion2(champ_name)
+    insert_weapon(essence_reaver)
+    insert_champion(karthus,essence_reaver)
+    return db_champion(champ_name)
 
 @app.get("/v1/champions/get-champion-by-name")
 def get_champion(champion_name : str):
