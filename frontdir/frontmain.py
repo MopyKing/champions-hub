@@ -19,7 +19,7 @@ def main():
         new_title = '<p style="font-family:sans-serif; color:black; font-size: 30px;">In this application you will be able to do several things :</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # 1. Display Information about the champion "Master-Yi"<br>2. Display Information about the champion "Karthus"<br>3. Display Information about the champion "Poppy"<br>4. Display the pictures of all the champions<br>5. Display champion information dynamically of your choice
-        new_title = '<p style="font-family:sans-serif; color:black; font-size: 20px;">1. Display Information about the champion "Master-Yi"<br>2. Display Information about the champion "Karthus"<br>3. Display Information about the champion "Poppy"<br>4. Display the pictures of all the champions<br>5. Display champion information dynamically of your choice</p>'
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 20px;">1. Display Information about the champion "Master-Yi"<br><br>2. Display Information about the champion "Karthus"<br><br>3. Display Information about the champion "Poppy"<br><br>4. Display the pictures of all the champions<br><br>5. Display champion information dynamically of your choice</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.info('Please Navigate To The Scroll Bar "Menu" Located Top Left Corner Of This Window And Choose A Task')
         #st.subheader("Home")
