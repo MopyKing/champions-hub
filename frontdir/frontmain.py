@@ -78,19 +78,19 @@ def main():
         new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view champion information !</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.markdown("To display :red[Master-Yi], simply input 'masteryi' ")
-        if st.text_input("Champion name") == "masteryi":
-            dfs = []
-            response = requests.get("http://backend:90/v1/champions/masteryi")
-            content = json.loads(response.text)
-            dfs.append(pd.DataFrame([content]))
-            df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
+        #if st.text_input("Champion name") == "masteryi":
+        dfs = []
+        response = requests.get("http://backend:90/v1/champions/masteryi")
+        content = json.loads(response.text)
+        dfs.append(pd.DataFrame([content]))
+        df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
 
-            image = Image.open("/app/frontdir/league-of-legends/masteryi.png")
-            # resizing the image to 720p
-            new_width = int(new_height / image.height * image.width)
-            image.resize((new_width, new_height))
-            st.image(image, caption="Master Yi")
-            st.table(df)
+        image = Image.open("/app/frontdir/league-of-legends/masteryi.png")
+        # resizing the image to 720p
+        new_width = int(new_height / image.height * image.width)
+        image.resize((new_width, new_height))
+        st.image(image, caption="Master Yi")
+        st.table(df)
 
     elif choice == "karthus":
         new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view champion information !</p>'
@@ -111,19 +111,19 @@ def main():
             st.table(df)
 
     elif choice == "poppy":
-        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view champion information !</p>'
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view :blue[Poppy`s] information !</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.markdown("To display :blue[Poppy], simply input 'poppy' ")
-        if st.text_input("Champion name") == "poppy":      
-            dfs = []
-            response = requests.get("http://backend:90/v1/champions/poppy")
-            json_obj = json.loads(response.text)
-            content = json_obj["champion"]
-            dfs.append(pd.DataFrame([content]))
-            df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
+        #if st.text_input("Champion name") == "poppy":      
+        dfs = []
+        response = requests.get("http://backend:90/v1/champions/poppy")
+        json_obj = json.loads(response.text)
+        content = json_obj["champion"]
+        dfs.append(pd.DataFrame([content]))
+        df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
 
-            st.markdown(json_obj["image"], unsafe_allow_html=True)
-            st.table(df)
+        st.markdown(json_obj["image"], unsafe_allow_html=True)
+        st.table(df)
 
     elif choice == "Champions":
             new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can display information about several champions !</p>'

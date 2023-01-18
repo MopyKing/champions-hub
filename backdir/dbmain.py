@@ -113,21 +113,20 @@ def db_champion(champion_name):
     cursor = db.cursor()
     cursor.execute(select_champion)
     result = cursor.fetchall()
-    mydict=dict()
-    for row in result:
-        mydict["name"]:row[0]
-        mydict["health"]:row[1]
-        mydict["mana"]:row[2]
-        mydict["health_regen"]:row[3]
-        mydict["mana_regen"]:row[4]
-        mydict["attack_damage"]:row[5]
-        mydict["magic_damage"]:row[6]
-        mydict["armor"]:row[7]
-        mydict["magic_resist"]:row[8]
-        mydict["critical_damage"]:row[9]
-        mydict["movement_speed"]:row[10]
-        mydict["attack_range"]:row[11]
-        mydict["weapon"]:row[12]
+    mydict={}
+    mydict["name"]:result[0][0]
+    mydict["health"]:result[0][1]
+    mydict["mana"]:result[0][2]
+    mydict["health_regen"]:result[0][3]
+    mydict["mana_regen"]:result[0][4]
+    mydict["attack_damage"]:result[0][5]
+    mydict["magic_damage"]:result[0][6]
+    mydict["armor"]:result[0][7]
+    mydict["magic_resist"]:result[0][8]
+    mydict["critical_damage"]:result[0][9]
+    mydict["movement_speed"]:result[0][10]
+    mydict["attack_range"]:result[0][11]
+    mydict["weapon"]:result[0][12]
 
     return mydict
 
@@ -138,12 +137,11 @@ def db_weapon(weapon_name):
     cursor.execute(select_weapon)
     result = cursor.fetchall()
 
-    for row in result:
-        mydict = {
-        "name":row[0],
-        "attack_damage":row[1],
-        "magic_damage":row[2],
-        "attack_speed":row[3],
-        "ability_haste":row[4]
-    }
+    mydict = {
+    "name":result[0][0],
+    "attack_damage":result[0][1],
+    "magic_damage":result[0][2],
+    "attack_speed":result[0][3],
+    "ability_haste":result[0][4]
+}
     return mydict

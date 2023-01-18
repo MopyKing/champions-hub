@@ -104,6 +104,10 @@ def get_champion(champion_name : str):
             return champ
     return {"Exception": "No Such Champion"}
 
+@app.put("/v1/champions/update-champion")
+def update_champion(champion: Champion):
+    pass
+
 @app.post("/v1/champions/add-champion")
 def Add_Champion(champion: Champion):
     return {"SUCCESS":"You Added a Champion !"}
