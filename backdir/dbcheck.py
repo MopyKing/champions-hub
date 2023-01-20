@@ -138,18 +138,19 @@ select_champion = f"SELECT * FROM champions WHERE name = '{champion_name}'"
 cursor = db.cursor()
 cursor.execute(select_champion)
 result = cursor.fetchall()
+print({"result":result})
 mydict={}
-mydict["name"]:result[0][0]
-mydict["health"]:result[0][1]
-mydict["mana"]:result[0][2]
-mydict["health_regen"]:result[0][3]
-mydict["mana_regen"]:result[0][4]
-mydict["attack_damage"]:result[0][5]
-mydict["magic_damage"]:result[0][6]
-mydict["armor"]:result[0][7]
-mydict["magic_resist"]:result[0][8]
-mydict["critical_damage"]:result[0][9]
-mydict["movement_speed"]:result[0][10]
-mydict["attack_range"]:result[0][11]
-mydict["weapon"]:result[0][12]
+mydict["name"]=result[0][0]
+mydict["health"]=result[0][1]
+mydict["mana"]=result[0][2]
+mydict["health_regen"]=result[0][3]
+mydict["mana_regen"]=result[0][4]
+mydict["attack_damage"]=result[0][5]
+mydict["magic_damage"]=result[0][6]
+mydict["armor"]=result[0][7]
+mydict["magic_resist"]=result[0][8]
+mydict["critical_damage"]=result[0][9]
+mydict["movement_speed"]=result[0][10]
+mydict["attack_range"]=result[0][11]
+mydict["weapon"]=result[0][12]
 print(mydict)
