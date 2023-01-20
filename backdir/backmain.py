@@ -2,18 +2,18 @@ from fastapi import FastAPI
 from backdir.models import Weapon, Champion
 import mysql
 import mysql.connector
-from backdir.dbmain import db_champion, insert_champion, db_weapon, insert_weapon
+from backdir.dbmain import db_champion, insert_champion, db_weapon, insert_weapon, db_update_champion, db_update_weapon
 
 
 app = FastAPI()
 
 essence_reaver= Weapon(
-    name="essence reaver",
+    name="essence-reaver",
     attack_damage=45, 
     ability_haste=20)
 
 everfrost=Weapon(
-    name="Everfrost",
+    name="everfrost",
     magic_damage=70,
     ability_haste=20
 )
@@ -63,16 +63,25 @@ karthus = Champion(
     attack_range=450, 
     weapon=essence_reaver)
 
-Champions_List = []
-Champions_List.append(masteryi)
-Champions_List.append(karthus)
-Champions_List.append(poppy)
-
+Champions_List = [masteryi,karthus,poppy]
+Weapons_List = [essence_reaver, everfrost]
 
 Champions_Info = {
     "champions": Champions_List,
     "number_of_champions": len(Champions_List)
 }
+
+Weapons_Info = {
+    "weapons":Weapons_List,
+    "number_of_weapons":len(Weapons_List)
+}
+
+insert_weapon(essence_reaver)
+insert_weapon(everfrost)
+insert_champion(karthus,everfrost)
+insert_champion(masteryi,essence_reaver)
+insert_champion(poppy,essence_reaver)
+
 
 @app.get("/")
 def home():
@@ -84,33 +93,40 @@ def Display_Champions_Info():
 
 @app.get("/v1/champions/masteryi")
 def Masteryi():
-    return masteryi
+    champ_name="masteryi"
+    return db_champion(champ_name)
 
 @app.get("/v1/champions/poppy")
 def Poppy():
-    return poppy
+    champ_name="poppy"
+    return db_champion(champ_name)
 
 @app.get("/v1/champions/karthus")
 def Karthus():
     champ_name="karthus"
-    insert_weapon(essence_reaver)
-    insert_champion(karthus,essence_reaver)
     return db_champion(champ_name)
 
 @app.get("/v1/champions/get-champion-by-name")
 def get_champion(champion_name : str):
     for champ in Champions_Info["champions"]:
         if champ.name == champion_name:
-            return champ
+            return db_champion(champ.name)
     return {"Exception": "No Such Champion"}
+
+@app.get("/v1/weapons/get-weapon-by-name")
+def get_weapon(weapon_name : str):
+    for weap in Weapons_Info["weapons"]:
+        if weap.name == weapon_name:
+            return db_weapon(weap.name)
+    return {"Exception": "No Such Weapon"}
 
 @app.put("/v1/champions/update-champion")
 def update_champion(champion: Champion):
-    pass
+    db_update_champion(champion)
 
-@app.post("/v1/champions/add-champion")
-def Add_Champion(champion: Champion):
-    return {"SUCCESS":"You Added a Champion !"}
+@app.put("/v1/weapons/update-weapon")
+def update_weapon(weapon: Weapon):
+    db_update_weapon(weapon)
 
 @app.get("/v1/weapons/essence_reaver")
 def Essence_Reaver():

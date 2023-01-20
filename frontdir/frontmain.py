@@ -10,7 +10,7 @@ from html.parser import HTMLParser
 def main():
     new_height = 720
     st.title("Champions-Hub")
-    menu = ["Home", "Pictures", "masteryi","karthus", "poppy","Champions", "Login", "Sign-Up"]
+    menu = ["Home", "pictures", "masteryi", "karthus", "poppy","champions", "weapons", "update-champion", "update-weapon"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Home":
@@ -19,44 +19,23 @@ def main():
         new_title = '<p style="font-family:sans-serif; color:black; font-size: 30px;">In this application you will be able to do several things :</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # 1. Display Information about the champion "Master-Yi"<br>2. Display Information about the champion "Karthus"<br>3. Display Information about the champion "Poppy"<br>4. Display the pictures of all the champions<br>5. Display champion information dynamically of your choice
-        new_title = '<p style="font-family:sans-serif; color:black; font-size: 20px;">1. Display Information about the champion "Master-Yi"<br><br>2. Display Information about the champion "Karthus"<br><br>3. Display Information about the champion "Poppy"<br><br>4. Display the pictures of all the champions<br><br>5. Display champion information dynamically of your choice</p>'
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 20px;">1. Display Information about the champion "Master-Yi"<br><br>2. Display Information about the champion "Karthus"<br><br>3. Display Information about the champion "Poppy"<br><br>4. Display the pictures of all the champions<br><br>5. Display champion information dynamically of your choice<br><br>6. Update champions information<br><br>7. Update  weapons information.</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.info('Please Navigate To The Scroll Bar "Menu" Located Top Left Corner Of This Window And Choose A Task')
         #st.subheader("Home")
 
-    elif choice == "Login":
-        st.subheader("Login Section")
-
-        username = st.sidebar.text_input("User Name")
-        password = st.sidebar.text_input("Password", type="password")
-        if st.sidebar.checkbox("Login"):
-            st.success("Logged in as {}".format(username))
-
-            task = st.selectbox("Task", ["Upload Picture", "Remove Picture"])
-            if task == "Upload Picture":
-                pass
-
-    elif choice == "Sign-Up":
-        st.subheader("Create New Account")
-        new_user = st.text_input("Usernane")
-        new_password = st.text_input("Password", type="password")
-
-        if st.button("Sign Up"):
-            st.success("Successfully Created Account : {}".format(new_user))
-            st.info("Proceed to Login page.")
-
-    elif choice == "Pictures":
+    elif choice == "pictures":
         st.subheader("Pictures Of Champions")
 
-        ####### PICTURE OF VI AND JINX ########
-        image_path = "/app/frontdir/league-of-legends/vi-jinx.png"
+        ####### PICTURE OF POPPY ########
+        image_path = "/app/frontdir/league-of-legends/poppy.png"
 
         image = Image.open(image_path)
         # resizing the image to 720p
         new_width = int(new_height / image.height * image.width)
         image.resize((new_width, new_height))
-        st.image(image, caption="Jinx-Vi")
-        st.button("Download", key="3")
+        st.image(image, caption="Poppy")
+        #st.button("Download", key="3")
 
         ####### PICTURE OF MASTER YI ########
         image = Image.open("/app/frontdir/league-of-legends/masteryi.png")
@@ -64,7 +43,7 @@ def main():
         new_width = int(new_height / image.height * image.width)
         image.resize((new_width, new_height))
         st.image(image, caption="Master Yi")
-        st.button("Download", key="4")
+        #st.button("Download", key="4")
 
         ####### PICTURE OF KARTHUS ########
         image = Image.open("/app/frontdir/league-of-legends/karthus.png")
@@ -72,12 +51,22 @@ def main():
         new_width = int(new_height / image.height * image.width)
         image.resize((new_width, new_height))
         st.image(image, caption="Karthus")
-        st.button("Download", key="5")
+        #st.button("Download", key="5")
+
+        ####### PICTURE OF EVERFROST ########
+        image = Image.open("/app/frontdir/league-of-legends/everfrost.png")
+        st.image(image, caption="Everfrost")
+        #st.button("Download", key="5")
+
+        ####### PICTURE OF ESSENCE REAVER ########
+        image = Image.open("/app/frontdir/league-of-legends/essence-reaver.png")
+        st.image(image, caption="Essenec-Reaver")
+        #st.button("Download", key="5")
 
     elif choice == "masteryi":
-        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view champion information !</p>'
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view Master-Yi`s information !</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-        st.markdown("To display :red[Master-Yi], simply input 'masteryi' ")
+        st.markdown("View :red[Master-Yi] information below.")
         #if st.text_input("Champion name") == "masteryi":
         dfs = []
         response = requests.get("http://backend:90/v1/champions/masteryi")
@@ -93,57 +82,145 @@ def main():
         st.table(df)
 
     elif choice == "karthus":
-        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view champion information !</p>'
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view Karthus` information !</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-        st.markdown("To display :green[Karthus], simply input 'karthus' ")
-        if st.text_input("Champion name") == "karthus":
-            dfs = []
-            response = requests.get("http://backend:90/v1/champions/karthus")
-            content = json.loads(response.text)
-            dfs.append(pd.DataFrame([content]))
-            df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
-
-            image = Image.open("/app/frontdir/league-of-legends/karthus.png")
-            # resizing the image to 720p
-            new_width = int(new_height / image.height * image.width)
-            image.resize((new_width, new_height))
-            st.image(image, caption="Karthus")
-            st.table(df)
-
-    elif choice == "poppy":
-        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view :blue[Poppy`s] information !</p>'
-        st.markdown(new_title, unsafe_allow_html=True)
-        st.markdown("To display :blue[Poppy], simply input 'poppy' ")
-        #if st.text_input("Champion name") == "poppy":      
+        st.markdown("View :green[Karthus] information below.")
+        #if st.text_input("Champion name") == "karthus":
         dfs = []
-        response = requests.get("http://backend:90/v1/champions/poppy")
-        json_obj = json.loads(response.text)
-        content = json_obj["champion"]
+        response = requests.get("http://backend:90/v1/champions/karthus")
+        content = json.loads(response.text)
         dfs.append(pd.DataFrame([content]))
         df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
 
-        st.markdown(json_obj["image"], unsafe_allow_html=True)
+        image = Image.open("/app/frontdir/league-of-legends/karthus.png")
+        # resizing the image to 720p
+        new_width = int(new_height / image.height * image.width)
+        image.resize((new_width, new_height))
+        st.image(image, caption="Karthus")
         st.table(df)
 
-    elif choice == "Champions":
-            new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can display information about several champions !</p>'
+    elif choice == "poppy":
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can view Poppy`s information !</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        st.markdown("View :blue[Poppy] information below.")
+        #if st.text_input("Champion name") == "poppy":      
+        dfs = []
+        response = requests.get("http://backend:90/v1/champions/poppy")
+        content = json.loads(response.text)
+        dfs.append(pd.DataFrame([content]))
+        df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
+
+        image = Image.open("/app/frontdir/league-of-legends/poppy.png")
+        # resizing the image to 720p
+        new_width = int(new_height / image.height * image.width)
+        image.resize((new_width, new_height))
+        st.image(image, caption="Poppy")
+        st.table(df)
+
+    elif choice == "champions":
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can display information about several champions !</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        st.markdown("If You Havent Entered A Name Yet - Ignore The Warning.")
+        st.markdown("Try input one of the names : :red['masteryi'], :green['karthus'], :blue['poppy']")
+        name = st.text_input("Champion name")
+        while(True):
+            if(name!=None or name!= ""):
+                break
+        dfs = []
+        response = requests.get(url="http://backend:90/v1/champions/get-champion-by-name", params={"champion_name":name})
+        content = json.loads(response.text)
+        dfs.append(pd.DataFrame([content]))
+        df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
+        image = Image.open("/app/frontdir/league-of-legends/{}.png".format(name))
+        # resizing the image to 720p
+        new_width = int(new_height / image.height * image.width)
+        image.resize((new_width, new_height))
+        st.image(image, caption="{name}")
+        st.table(df)
+
+    elif choice == "weapons":
+        new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can display information about several weapons !</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        st.markdown("If You Havent Entered A Name Yet - Ignore The Warning.")
+        st.markdown("Try input one of the names : :blue['everfrost'], :blue['essence-reaver']")
+        name = st.text_input("Weapon name")
+        while(True):
+            if(name!=None or name!= ""):
+                break
+        dfs = []
+        response = requests.get(url="http://backend:90/v1/weapons/get-weapon-by-name", params={"weapon_name":name})
+        content = json.loads(response.text)
+        dfs.append(pd.DataFrame([content]))
+        df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
+        image = Image.open("/app/frontdir/league-of-legends/{}.png".format(name))
+        st.image(image, caption="{name}")
+        st.table(df)
+
+    elif choice == "update-champion":
+            new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can update a Champion ! HOW COOL IS THAT ??</p>'
             st.markdown(new_title, unsafe_allow_html=True)
-            st.markdown("Try input one of the names : :red['masteryi'], :green['karthus'], :blue['poppy]")
-            name = st.text_input("Champion name")
+            st.markdown("Champion names are :red['masteryi'], :green['karthus'] And :blue['poppy']")
+            name = st.text_input("champion name")
+            health = st.text_input("health")
+            mana = st.text_input("mana")
+            health_regen = st.text_input("health regen")
+            mana_regen = st.text_input("mana regen")
+            attack_damage = st.text_input("attack damage")
+            magic_damage = st.text_input("magic damage")
+            armor = st.text_input("armor")
+            magic_resist = st.text_input("magic resist")
+            critical_damage = st.text_input("critical damage")
+            movement_speed = st.text_input("movement speed")
+            attack_range = st.text_input("attack range")
+            champion = {
+                "name": name,
+                "health": health,
+                "mana": mana,
+                "health_regen": health_regen,
+                "mana_regen": mana_regen,
+                "attack_damage": attack_damage,
+                "magic_damage": magic_damage,
+                "armor": armor,
+                "magic_resist": magic_resist,
+                "critical_damage": critical_damage,
+                "movement_speed": movement_speed,
+                "attack_range": attack_range
+            }
+
             while(True):
-                if(name!=None or name!= ""):
+                if(attack_range!=None or attack_range!= ""):
+                    break
+
+            dfs = []
+            if st.checkbox('submit'):
+                response = requests.put(url="http://backend:90/v1/champions/update-champion", params={"champion_name":frozenset(champion.items())})
+                st.success('Successfully updated the champion {} !'.format(name))
+                st.info('Please Navigate To The "Menu", Select champions, And Enter {} To See If It Worked.'.format(name))
+
+    elif choice == "update-weapon":
+            new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can update a Weapon ! HOW COOL IS THAT ??</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            st.markdown("Weapon names are :red['everfrost'] And :blue['essence-reaver]")
+            name = st.text_input("weapon name")
+            attack_damage = st.text_input("attack damage")
+            magic_damage = st.text_input("magic damage")
+            attack_speed = st.text_input("movement speed")
+            ability_haste = st.text_input("weapon name")
+            weapon = {
+                "name": name,
+                "attack_damage": attack_damage,
+                "magic_damage": magic_damage,
+                "attack_speed": attack_speed,
+                "ability_haste": ability_haste,
+            }
+            while(True):
+                if(ability_haste!=None or ability_haste!= ""):
                     break
             dfs = []
-            response = requests.get(url="http://backend:90/v1/champions/get-champion-by-name", params={"champion_name":name})
-            content = json.loads(response.text)
-            dfs.append(pd.DataFrame([content]))
-            df = pd.concat(dfs, ignore_index=True, sort=False).transpose()
-            image = Image.open("/app/frontdir/league-of-legends/{}.png".format(name))
-            # resizing the image to 720p
-            new_width = int(new_height / image.height * image.width)
-            image.resize((new_width, new_height))
-            st.image(image, caption="{name}")
-            st.table(df)
+            if st.checkbox('submit'):
+                response = requests.put(url="http://backend:90/v1/weapons/update-weapon", params={"weapon_name":frozenset(weapon.items())})
+                st.success('Successfully updated the champion {} !'.format(name))
+                st.info('Please Navigate To The "Menu", Select weapons, And Enter {} To See If It Worked.'.format(name))
 
 
 if __name__ == "__main__":

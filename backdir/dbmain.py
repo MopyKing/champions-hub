@@ -136,12 +136,68 @@ def db_weapon(weapon_name):
     cursor = db.cursor()
     cursor.execute(select_weapon)
     result = cursor.fetchall()
+    mydict = {}
+    mydict["name"]=result[0][0]
+    mydict["attack_damage"]=result[0][1]
+    mydict["magic_damage"]=result[0][2]
+    mydict["attack_speed"]=result[0][3]
+    mydict["ability_haste"]=result[0][4]
 
-    mydict = {
-    "name":result[0][0],
-    "attack_damage":result[0][1],
-    "magic_damage":result[0][2],
-    "attack_speed":result[0][3],
-    "ability_haste":result[0][4]
-}
     return mydict
+
+def db_update_champion(champion: Champion):
+    sql_query = """UPDATE champions
+    SET name,
+        health,
+        mana,
+        health_regen,
+        mana_regen,
+        attack_damage,
+        magic_damage,
+        armor,
+        magic_resist,
+        critical_damage,
+        movement_speed,
+        attack_range)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+        WHERE name = '{}';""".format(champion.name)
+
+    values_list=(
+        champion.name,
+        champion.health,
+        champion.mana,
+        champion.health_regen,
+        champion.mana_regen,
+        champion.attack_damage,
+        champion.magic_damage,
+        champion.armor,
+        champion.magic_resist,
+        champion.critical_damage,
+        champion.movement_speed,
+        champion.attack_range)
+
+    with db.cursor() as cursor:
+        cursor.execute(sql_query, values_list)
+        db.commit()
+
+def db_update_weapon(weapon: Weapon):
+    sql_query = """UPDATE champions
+    SET name,
+        attack_damage,
+        magic_damage,
+        attack_speed,
+        ability_haste)
+        VALUES (%s, %s, %s, %s, %s)'''
+        WHERE name = '{}';""".format(weapon.name)
+
+    values_list=(
+        weapon.name,
+        weapon.attack_damage,
+        weapon.magic_damage,
+        weapon.attack_speed,
+        weapon.ability_haste
+    )
+    
+    with db.cursor() as cursor:
+        cursor.execute(sql_query, values_list)
+        db.commit()

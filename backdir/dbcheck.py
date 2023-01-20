@@ -66,91 +66,104 @@ with db.cursor() as cursor:
     cursor.execute(create_champions_table_query)
     db.commit()
 
-sql_query = '''INSERT INTO weapons(
-    name,
-    attack_damage,
-    magic_damage,
-    attack_speed,
-    ability_haste)
-    VALUES (%s, %s, %s, %s, %s)'''
+# sql_query = '''INSERT INTO weapons(
+#     name,
+#     attack_damage,
+#     magic_damage,
+#     attack_speed,
+#     ability_haste)
+#     VALUES (%s, %s, %s, %s, %s)'''
 
-values_list=(
-    essence_reaver.name,
-    essence_reaver.attack_damage,
-    essence_reaver.magic_damage,
-    essence_reaver.attack_speed,
-    essence_reaver.ability_haste
-)
+# values_list=(
+#     essence_reaver.name,
+#     essence_reaver.attack_damage,
+#     essence_reaver.magic_damage,
+#     essence_reaver.attack_speed,
+#     essence_reaver.ability_haste
+# )
 
-with db.cursor() as cursor:
-    cursor.execute(sql_query, values_list)
-    db.commit()
+# with db.cursor() as cursor:
+#     cursor.execute(sql_query, values_list)
+#     db.commit()
 
-sql_query = '''INSERT INTO champions(
-        name,
-        health,
-        mana,
-        health_regen,
-        mana_regen,
-        attack_damage,
-        magic_damage,
-        armor,
-        magic_resist,
-        critical_damage,
-        movement_speed,
-        attack_range,
-        weapon)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+# sql_query = '''INSERT INTO champions(
+#         name,
+#         health,
+#         mana,
+#         health_regen,
+#         mana_regen,
+#         attack_damage,
+#         magic_damage,
+#         armor,
+#         magic_resist,
+#         critical_damage,
+#         movement_speed,
+#         attack_range,
+#         weapon)
+#         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
 
-values_list=(
-    karthus.name,
-    karthus.health,
-    karthus.mana,
-    karthus.health_regen,
-    karthus.mana_regen,
-    karthus.attack_damage,
-    karthus.magic_damage,
-    karthus.armor,
-    karthus.magic_resist,
-    karthus.critical_damage,
-    karthus.movement_speed,
-    karthus.attack_range,
-    essence_reaver.name,
-)
+# values_list=(
+#     karthus.name,
+#     karthus.health,
+#     karthus.mana,
+#     karthus.health_regen,
+#     karthus.mana_regen,
+#     karthus.attack_damage,
+#     karthus.magic_damage,
+#     karthus.armor,
+#     karthus.magic_resist,
+#     karthus.critical_damage,
+#     karthus.movement_speed,
+#     karthus.attack_range,
+#     essence_reaver.name,
+# )
 
-with db.cursor() as cursor:
-    cursor.execute(sql_query, values_list)
-    db.commit()
+# with db.cursor() as cursor:
+#     cursor.execute(sql_query, values_list)
+#     db.commit()
 
-select_champion = """SELECT * FROM champions WHERE name = 'karthus'"""
+weapon_name="everfrost"
+select_weapon = """SELECT * FROM weapons WHERE name = '{}'""".format(weapon_name)
 cursor = db.cursor()
-cursor.execute(select_champion)
+cursor.execute(select_weapon)
 result = cursor.fetchall()
-mydict1 = {}
-mydict1["name"]=result[0][0]
-print(result[0])
-print(result[0][0])
-print(mydict1)
-print("now trying full query")
 
-champion_name='karthus'
-select_champion = f"SELECT * FROM champions WHERE name = '{champion_name}'"
-cursor = db.cursor()
-cursor.execute(select_champion)
-result = cursor.fetchall()
-print({"result":result})
-mydict={}
+mydict = {}
 mydict["name"]=result[0][0]
-mydict["health"]=result[0][1]
-mydict["mana"]=result[0][2]
-mydict["health_regen"]=result[0][3]
-mydict["mana_regen"]=result[0][4]
-mydict["attack_damage"]=result[0][5]
-mydict["magic_damage"]=result[0][6]
-mydict["armor"]=result[0][7]
-mydict["magic_resist"]=result[0][8]
-mydict["critical_damage"]=result[0][9]
-mydict["movement_speed"]=result[0][10]
-mydict["attack_range"]=result[0][11]
-mydict["weapon"]=result[0][12]
+mydict["attack_damage"]=result[0][1]
+mydict["magic_damage"]=result[0][2]
+mydict["attack_speed"]=result[0][3]
+mydict["ability_haste"]=result[0][4]
 print(mydict)
+# select_champion = """SELECT * FROM champions WHERE name = 'karthus'"""
+# cursor = db.cursor()
+# cursor.execute(select_champion)
+# result = cursor.fetchall()
+# mydict1 = {}
+# mydict1["name"]=result[0][0]
+# print(result[0])
+# print(result[0][0])
+# print(mydict1)
+# print("now trying full query")
+
+# champion_name='karthus'
+# select_champion = f"SELECT * FROM champions WHERE name = '{champion_name}'"
+# cursor = db.cursor()
+# cursor.execute(select_champion)
+# result = cursor.fetchall()
+# print({"result":result})
+# mydict={}
+# mydict["name"]=result[0][0]
+# mydict["health"]=result[0][1]
+# mydict["mana"]=result[0][2]
+# mydict["health_regen"]=result[0][3]
+# mydict["mana_regen"]=result[0][4]
+# mydict["attack_damage"]=result[0][5]
+# mydict["magic_damage"]=result[0][6]
+# mydict["armor"]=result[0][7]
+# mydict["magic_resist"]=result[0][8]
+# mydict["critical_damage"]=result[0][9]
+# mydict["movement_speed"]=result[0][10]
+# mydict["attack_range"]=result[0][11]
+# mydict["weapon"]=result[0][12]
+# print(mydict)
