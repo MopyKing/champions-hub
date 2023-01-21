@@ -185,13 +185,6 @@ def db_update_weapon(weapon):
         attack_speed = %s,
         ability_haste = %s
         WHERE name = %s;"""
-    
-    sql_query2 = """UPDATE champions
-    SET attack_damage = %s,
-        magic_damage = %s,
-        attack_speed = %s,
-        ability_haste = %s
-        WHERE name = %s;"""
 
     values_list=(
         int(weapon["attack_damage"]),
@@ -202,5 +195,5 @@ def db_update_weapon(weapon):
     )
     
     with db.cursor() as cursor:
-        cursor.execute(sql_query2, values_list)
+        cursor.execute(sql_query, values_list)
         db.commit()
