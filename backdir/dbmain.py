@@ -145,59 +145,62 @@ def db_weapon(weapon_name):
 
     return mydict
 
-def db_update_champion(champion: Champion):
+def db_update_champion(champion):
     sql_query = """UPDATE champions
-    SET name,
-        health,
-        mana,
-        health_regen,
-        mana_regen,
-        attack_damage,
-        magic_damage,
-        armor,
-        magic_resist,
-        critical_damage,
-        movement_speed,
-        attack_range)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
-        WHERE name = '{}';""".format(champion.name)
+    SET health = %s,
+        mana = %s,
+        health_regen = %s,
+        mana_regen = %s,
+        attack_damage = %s,
+        magic_damage = %s,
+        armor = %s,
+        magic_resist = %s,
+        critical_damage = %s,
+        movement_speed = %s,
+        attack_range = %s
+        WHERE name = %s;"""
 
     values_list=(
-        champion.name,
-        champion.health,
-        champion.mana,
-        champion.health_regen,
-        champion.mana_regen,
-        champion.attack_damage,
-        champion.magic_damage,
-        champion.armor,
-        champion.magic_resist,
-        champion.critical_damage,
-        champion.movement_speed,
-        champion.attack_range)
+        int(champion["health"]),
+        int(champion["mana"]),
+        float(champion["health_regen"]),
+        float(champion["mana_regen"]),
+        int(champion["attack_damage"]),
+        int(champion["magic_damage"]),
+        int(champion["armor"]),
+        int(champion["magic_resist"]),
+        int(champion["critical_damage"]),
+        int(champion["movement_speed"]),
+        int(champion["attack_range"]),
+        champion["name"])
 
     with db.cursor() as cursor:
         cursor.execute(sql_query, values_list)
         db.commit()
 
-def db_update_weapon(weapon: Weapon):
+def db_update_weapon(weapon):
     sql_query = """UPDATE champions
-    SET name,
-        attack_damage,
-        magic_damage,
-        attack_speed,
-        ability_haste)
-        VALUES (%s, %s, %s, %s, %s)'''
-        WHERE name = '{}';""".format(weapon.name)
+    SET attack_damage = %s,
+        magic_damage = %s,
+        attack_speed = %s,
+        ability_haste = %s
+        WHERE name = %s;"""
+    
+    sql_query2 = """UPDATE champions
+    SET attack_damage = %s,
+        magic_damage = %s,
+        attack_speed = %s,
+        ability_haste = %s
+        WHERE name = %s;"""
 
     values_list=(
-        weapon.name,
-        weapon.attack_damage,
-        weapon.magic_damage,
-        weapon.attack_speed,
-        weapon.ability_haste
+        int(weapon["attack_damage"]),
+        int(weapon["magic_damage"]),
+        int(weapon["attack_speed"]),
+        int(weapon["ability_haste"]),
+        weapon["name"]
     )
     
     with db.cursor() as cursor:
-        cursor.execute(sql_query, values_list)
+        cursor.execute(sql_query2, values_list)
         db.commit()

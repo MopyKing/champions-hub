@@ -135,7 +135,7 @@ def main():
         # resizing the image to 720p
         new_width = int(new_height / image.height * image.width)
         image.resize((new_width, new_height))
-        st.image(image, caption="{name}")
+        st.image(image, caption=f"{name}")
         st.table(df)
 
     elif choice == "weapons":
@@ -160,7 +160,9 @@ def main():
             new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can update a Champion ! HOW COOL IS THAT ??</p>'
             st.markdown(new_title, unsafe_allow_html=True)
             st.markdown("Champion names are :red['masteryi'], :green['karthus'] And :blue['poppy']")
+            st.markdown("Weapon names are :blue['essence-reaver'] And :blue['everfrost']")
             name = st.text_input("champion name")
+            st.warning("THE NAME FIELD IS ALWAYS REQUIRED")
             health = st.text_input("health")
             mana = st.text_input("mana")
             health_regen = st.text_input("health regen")
@@ -172,6 +174,7 @@ def main():
             critical_damage = st.text_input("critical damage")
             movement_speed = st.text_input("movement speed")
             attack_range = st.text_input("attack range")
+
             champion = {
                 "name": name,
                 "health": health,
@@ -184,28 +187,31 @@ def main():
                 "magic_resist": magic_resist,
                 "critical_damage": critical_damage,
                 "movement_speed": movement_speed,
-                "attack_range": attack_range
+                "attack_range": attack_range,
             }
 
-            while(True):
-                if(attack_range!=None or attack_range!= ""):
-                    break
-
-            dfs = []
             if st.checkbox('submit'):
-                response = requests.put(url="http://backend:90/v1/champions/update-champion", params={"champion_name":frozenset(champion.items())})
-                st.success('Successfully updated the champion {} !'.format(name))
-                st.info('Please Navigate To The "Menu", Select champions, And Enter {} To See If It Worked.'.format(name))
+                for i in champion:
+                    if champion[i] == '' or champion[i] == None or champion[i] == ' ':
+                        champion[i] = 0
+                    else:
+                        continue
+                data_json=json.dumps(champion)
+                headers = {'Content-Type': 'application/json'}
+                response = requests.put(url="http://backend:90/v1/champions/update-champion", data=data_json, headers=headers)
+                st.success('Successfully updated the champion `{}` !'.format(name))
+                st.info('Please Navigate To The "Menu", Select `champions`, And Enter `{}` To See If It Worked.'.format(name))
 
     elif choice == "update-weapon":
             new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can update a Weapon ! HOW COOL IS THAT ??</p>'
             st.markdown(new_title, unsafe_allow_html=True)
             st.markdown("Weapon names are :red['everfrost'] And :blue['essence-reaver]")
             name = st.text_input("weapon name")
+            st.warning("THE NAME FIELD IS ALWAYS REQUIRED")
             attack_damage = st.text_input("attack damage")
             magic_damage = st.text_input("magic damage")
-            attack_speed = st.text_input("movement speed")
-            ability_haste = st.text_input("weapon name")
+            attack_speed = st.text_input("attack speed")
+            ability_haste = st.text_input("ability haste")
             weapon = {
                 "name": name,
                 "attack_damage": attack_damage,
@@ -213,14 +219,19 @@ def main():
                 "attack_speed": attack_speed,
                 "ability_haste": ability_haste,
             }
-            while(True):
-                if(ability_haste!=None or ability_haste!= ""):
-                    break
+
             dfs = []
             if st.checkbox('submit'):
-                response = requests.put(url="http://backend:90/v1/weapons/update-weapon", params={"weapon_name":frozenset(weapon.items())})
+                for i in weapon:
+                    if weapon[i] == '' or weapon[i] == None or weapon[i] == ' ':
+                        weapon[i] = 0
+                    else:
+                        continue
+                data_json=json.dumps(weapon)
+                headers = {'Content-Type': 'application/json'}
+                response = requests.put(url="http://backend:90/v1/weapons/update-weapon", data=data_json, headers=headers)
                 st.success('Successfully updated the champion {} !'.format(name))
-                st.info('Please Navigate To The "Menu", Select weapons, And Enter {} To See If It Worked.'.format(name))
+                st.info('Please Navigate To The "Menu", Select `weapons`, And Enter `{}` To See If It Worked.'.format(name))
 
 
 if __name__ == "__main__":

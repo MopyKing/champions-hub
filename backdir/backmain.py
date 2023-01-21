@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from backdir.models import Weapon, Champion
 import mysql
 import mysql.connector
@@ -121,11 +121,11 @@ def get_weapon(weapon_name : str):
     return {"Exception": "No Such Weapon"}
 
 @app.put("/v1/champions/update-champion")
-def update_champion(champion: Champion):
+def update_champion(*, champion: dict = Body(...)):
     db_update_champion(champion)
 
 @app.put("/v1/weapons/update-weapon")
-def update_weapon(weapon: Weapon):
+def update_weapon(*, weapon: dict = Body(...)):
     db_update_weapon(weapon)
 
 @app.get("/v1/weapons/essence_reaver")
