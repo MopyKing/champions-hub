@@ -179,7 +179,7 @@ def db_update_champion(champion):
         db.commit()
 
 def db_update_weapon(weapon):
-    sql_query = """UPDATE champions
+    sql_query = """UPDATE weapons
     SET attack_damage = %s,
         magic_damage = %s,
         attack_speed = %s,
