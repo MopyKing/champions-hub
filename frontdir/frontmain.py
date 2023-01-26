@@ -231,7 +231,7 @@ def main():
                 data_json=json.dumps(weapon)
                 headers = {'Content-Type': 'application/json'}
                 response = requests.put(url="http://backend:90/v1/weapons/update-weapon", data=data_json, headers=headers)
-                st.success('Successfully updated the champion {} !'.format(name))
+                st.success('Successfully updated the weapon {} !'.format(name))
                 st.info('Please Navigate To The "Menu", Select `weapons`, And Enter `{}` To See If It Worked.'.format(name))
 
 
