@@ -160,7 +160,6 @@ def main():
             new_title = '<p style="font-family:sans-serif; color:black; font-size: 42px;">Here you can update a Champion ! HOW COOL IS THAT ??</p>'
             st.markdown(new_title, unsafe_allow_html=True)
             st.markdown("Champion names are :red['masteryi'], :green['karthus'] And :blue['poppy']")
-            st.markdown("Weapon names are :blue['essence-reaver'] And :blue['everfrost']")
             st.info("when finished check the 'submit' box at the bottom")
             name = st.text_input("champion name")
             st.warning("THE NAME FIELD IS ALWAYS REQUIRED")
