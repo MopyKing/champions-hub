@@ -32,7 +32,8 @@ Prerequisites :
 ```
 MYSQL_DATABASE=eass
 MYSQL_ROOT_HOST=%
-MYSQL_ROOT_PASSWORD=123456```
+MYSQL_ROOT_PASSWORD=123456
+```
 
 4. Then to start the application simply write the command : 
 
@@ -40,8 +41,8 @@ MYSQL_ROOT_PASSWORD=123456```
 
 this will create 3 containers for frontend, backend and database.
 
-3. To enter the Backend FastAPI UI - open your browser and enter the URL : 
+- To enter the Backend FastAPI UI - open your browser and enter the URL : 
    ``` localhost:90/docs ```
 
-4. To enter the Frontend UI - open your browser and enter the URL : 
+- To enter the Frontend UI - open your browser and enter the URL : 
    ``` localhost:8501 ```
