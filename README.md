@@ -17,6 +17,7 @@ The Architecture of this project is described below :
 Prerequisites :
 - Docker
 - Git
+- ```.env.mysql``` file
 
 1. First clone the repository to your local system :
 
@@ -26,7 +27,14 @@ Prerequisites :
 
 ``` cd Photos-Hub ```
 
-3. Then to start the application simply write the command : 
+3. Create a file named ```.env.mysql``` and paste this content : 
+
+```
+MYSQL_DATABASE=eass
+MYSQL_ROOT_HOST=%
+MYSQL_ROOT_PASSWORD=123456```
+
+4. Then to start the application simply write the command : 
 
 ``` docker-compose up ```
 
