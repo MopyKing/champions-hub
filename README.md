@@ -21,11 +21,11 @@ Prerequisites :
 
 1. First clone the repository to your local system :
 
-``` git clone https://github.com/EASS-HIT-PART-A-2022-CLASS-II/Photos-Hub.git```
+``` git clone https://github.com/MopyKing/champions-hub.git```
 
 2. Move into the directory of the project with the command : 
 
-``` cd Photos-Hub ```
+``` cd champions-hub ```
 
 3. Create a file named ```.env.mysql``` and paste this content : 
 
